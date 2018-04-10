@@ -19,8 +19,6 @@ shinyUI(fluidPage(
       HTML("</br></br>"),
       actionButton("forever", "Move Forever"),
       HTML("</br></br>"),
-      actionButton("stop", "Stop"),
-      HTML("</br></br>"),
       actionButton("reset", "Reset")
     ),
 

@@ -37,14 +37,21 @@ lifenext <- function(life){
   life <<- lifenext
 }
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   timer <- reactiveTimer(500)
   forever <- FALSE
   
-  observeEvent(input$forever, forever <<- TRUE)
-  observeEvent(input$stop, forever <<- FALSE)
-  
+  observeEvent(input$forever, {
+    if(forever==FALSE){
+      updateActionButton(session, "forever", label="Stop")
+      forever <<- TRUE
+    }else{
+      updateActionButton(session, "forever", label="Move Forever")
+      forever <<- FALSE
+    }
+    })
+
   observe({
     timer()
     if(forever==TRUE){
@@ -64,7 +71,6 @@ shinyServer(function(input, output) {
     input$nextgen
     input$reset
     input$forever
-    input$stop
     forever
     if(forever==TRUE) timer()
     click.x <- round(as.numeric(input$plot_click$x-0.5))
