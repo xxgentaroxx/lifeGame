@@ -45,11 +45,10 @@ shinyServer(function(input, output, session) {
   observeEvent(input$forever, {
     if(forever==FALSE){
       updateActionButton(session, "forever", label="Stop")
-      forever <<- TRUE
     }else{
       updateActionButton(session, "forever", label="Move Forever")
-      forever <<- FALSE
     }
+    forever <<- !forever
     })
 
   observe({
